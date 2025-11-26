@@ -4,6 +4,7 @@ tags: [iOS]
 categories: [Study]
 layout: single
 author_profile: true
+classes: wide
 ---
 
 [https://developer.apple.com/documentation/uikit/uiview/intrinsiccontentsize](https://developer.apple.com/documentation/uikit/uiview/intrinsiccontentsize)

@@ -4,6 +4,7 @@ tags: [iOS]
 categories: [Study]
 layout: single
 author_profile: true
+classes: wide
 ---
 
 ### 유니버셜 링크(Universal Link)

@@ -4,6 +4,7 @@ tags: [Swift]
 categories: [Study]
 layout: single
 author_profile: true
+classes: wide
 ---
 
 ## Property Wrapper
