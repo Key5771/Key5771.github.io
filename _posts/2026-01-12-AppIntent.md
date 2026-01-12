@@ -1,6 +1,6 @@
 ---
-title: "AppIntent"
-tags: [iOS]
+title: "iOS - AppIntent 알아보기"
+tags: [iOS, Swift]
 categories: [Study]
 layout: single
 author_profile: true
