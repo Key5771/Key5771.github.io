@@ -142,15 +142,42 @@ Task {
 ```swift
 Task {
     do {
-        try Task.checkCancellation()
-        await loadData()
+        try Task.checkCancellation()    // 작업 시작 전
+        let data = await loadData()
     } catch {
         // ...
     }
 }
 ```
 
-**2️⃣ 반복 루프 내부**
+- 이미 취소된 Task라면 expensive한 작업을 시작할 이유가 없음 -> 작업 진입 차단용 체크
+
+**2️⃣ await 이후, side effect 직전(중요)**
+
+```swift
+Task {
+    do {
+        try Task.checkCancellation()
+
+        let data = await loadData()
+
+        try Task.checkCancellation()    // 상태 변경 / UI 업데이트 직전 확인
+        self.items = data
+    }
+}
+```
+
+await 이후에는 다음이 가능해집니다.
+
+- Task가 중단된 사이에 cancel 요청 수신
+
+- 화면 이탈, Task 교체, ViewModel 해제 등
+
+이 상태에서 side effect(`@Published`, UI 변경 등)가 발생하면 논리적으로 잘못된 상태 변경이 될 수 있습니다.
+
+👉 side effect 보호용 체크
+
+**3️⃣반복 루프 내부**
 
 ```swift
 for item in items {
@@ -159,7 +186,7 @@ for item in items {
 }
 ```
 
-**3️⃣ Actor 내부 long-running 작업**
+**4️⃣ Actor 내부 long-running 작업**
 
 ```swift
 actor DataStore {
